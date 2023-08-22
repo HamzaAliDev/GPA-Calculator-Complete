@@ -1,0 +1,28 @@
+.kuch{
+ background-image: ('/5566879.jpg');
+ background-position: center;
+height: 100vh;
+ width: 100%;
+ 
+}
+.beautiful-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.beautiful-button:hover {
+    background-color: #2980b9;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}

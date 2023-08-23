@@ -24,8 +24,9 @@ const Result = () => {
     const [oning, setOning] = useState<number>(0)
     const [totalling, setTotalling] = useState<number>(0)
     const [maximumMarks, setmaximumMarks] = useState<number>(0)
-    const [credit, setcredit] =useState<number>(0)
-    const [gpa,setGpa] =useState<number>(0.0)
+    const [credit, setcredit] = useState<number>(0)
+    const [gpa, setGpa] = useState<number>(0.0)
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const alpha = (e: any) => {
         const inputValue = e.target.value;
@@ -413,9 +414,14 @@ const Result = () => {
                 setmidMark(0);
                 setfinalMark(0);
                 setpracticalMark(0);
-                
                 setTotalMarks(0)
                 setStatus("")
+
+                setdropDownWork([]);
+                setdropDownMid([]);
+                setdropDownFinal([]);
+                setdropDownPractical([]);
+
 
                 toast.success('Result has been added', {
                     position: "top-right",
@@ -494,184 +500,190 @@ const Result = () => {
             let d = a[i];
 
             credit += (d.Credith)
-            
+
         }
         setcredit(credit)
-        let kuch:number=0.0
-        console.log(qualityPoints,credit)
-        kuch =   qualityPoints /credit ;console.log(kuch)
+        let kuch: number = 0.0
+        console.log(qualityPoints, credit)
+        kuch = qualityPoints / credit; console.log(kuch)
 
         setGpa(kuch)
+        setSubmitted(true);
     }
-        return (
-            <div>
-                <div className="d-flex justify-content-center mt-5">
-                    <div className="card" style={{ width: "30rem" }}>
+    return (
+        <div>
+            <div className="d-flex justify-content-center mt-5">
+                <div className="card" style={{ width: "30rem" }}>
 
 
-                        <div className="card-body">
-                            <div className="form-group">
+                    <div className="card-body">
+                        <div className="form-group">
 
-                                <input type="text" className="form-control" value={name} aria-describedby="emailHelp" placeholder="Subject Title" onChange={alpha} />
-                                <br />
-                                <select className="form-select" value={maxMark} onChange={beta}>
-                                    <option value={0}>Marks</option>
-                                    <option value={80}>80</option>
-                                    <option value={60}>60</option>
-                                    <option value={40}>40</option>
-                                    <option value={20}>20</option>
+                            <input type="text" className="form-control" value={name} aria-describedby="emailHelp" placeholder="Subject Title" onChange={alpha} />
+                            <br />
+
+                            <select className="form-select" value={maxMark} onChange={beta}>
+                                <option value={0}>Marks</option>
+                                <option value={80}>80</option>
+                                <option value={60}>60</option>
+                                <option value={40}>40</option>
+                                <option value={20}>20</option>
+                            </select>
+
+                            <br />
+
+                            <div>
+                                {
+                                    dropDownWork.length > 0 && (
+                                        <div>
+
+                                            <select className="form-select" value={selectedSemesterMark} onChange={(e) => setSelectedSemesterMark(parseInt(e.target.value))}>
+                                                <option value={0}>Select Semester Marks</option>
+                                                {dropDownWork.map((value) => (
+                                                    <option key={value} value={value}>
+                                                        {value}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <br />
+                                        </div>
+                                    )
+                                }
+                            </div>
+
+                            <div>
+                                {
+                                    dropDownMid.length > 0 && (
+                                        <div>
+
+                                            <select className='form-select' value={midMark} onChange={charli} >
+                                                <option value={0}>Select Mid Marks</option>
+                                                {dropDownMid.map((value) => (
+                                                    <option key={value} value={value}>
+                                                        {value}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <br />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                {
+                                    dropDownFinal.length > 0 && (
+                                        <div>
+
+                                            <select className='form-select' value={finalMark} onChange={gemma} >
+                                                <option value={0}>Select Final Marks</option>
+                                                {dropDownFinal.map((value) => (
+                                                    <option key={value} value={value}>
+                                                        {value}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <br />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                {
+                                    dropDownPractical.length > 0 && (
+                                        <div>
+
+                                            <select className='form-select' value={practicalMark} onChange={penta} >
+                                                <option value={0}>Select Practical Marks</option>
+                                                {dropDownPractical.map((value) => (
+                                                    <option key={value} value={value}>
+                                                        {value}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <br />
+                                        </div>
+                                    )
+                                }
+                            </div>
+
+                            <div>
+                                <select className="form-select" value={status} onChange={onStatusHandler}>
+                                    <option value="">Enter Status</option>
+                                    <option value="Unverified">Unverified</option>
+                                    <option value='Repeated'>Repeated</option>
+                                    <option value='Verified'>Verified</option>
+                                    <option value="Failed">Failed</option>
                                 </select>
                                 <br />
-                                <div>
-                                    {
-                                        dropDownWork.length > 0 && (
-                                            <div>
-
-                                                <select className="form-select" value={selectedSemesterMark} onChange={(e) => setSelectedSemesterMark(parseInt(e.target.value))}>
-                                                    <option value={0}>Select Semester Marks</option>
-                                                    {dropDownWork.map((value) => (
-                                                        <option key={value} value={value}>
-                                                            {value}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                <br />
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                                <div>
-                                    {
-                                        dropDownMid.length > 0 && (
-                                            <div>
-
-                                                <select className='form-select' value={midMark} onChange={charli} >
-                                                    <option value={0}>Select Mid Marks</option>
-                                                    {dropDownMid.map((value) => (
-                                                        <option key={value} value={value}>
-                                                            {value}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                <br />
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                                <div>
-                                    {
-                                        dropDownFinal.length > 0 && (
-                                            <div>
-
-                                                <select className='form-select' value={finalMark} onChange={gemma} >
-                                                    <option value={0}>Select Final Marks</option>
-                                                    {dropDownFinal.map((value) => (
-                                                        <option key={value} value={value}>
-                                                            {value}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                <br />
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                                <div>
-                                    {
-                                        dropDownPractical.length > 0 && (
-                                            <div>
-
-                                                <select className='form-select' value={practicalMark} onChange={penta} >
-                                                    <option value={0}>Select Practical Marks</option>
-                                                    {dropDownPractical.map((value) => (
-                                                        <option key={value} value={value}>
-                                                            {value}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                <br />
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                                <div>
-                                    <select className="form-select" value={status} onChange={onStatusHandler}>
-                                        <option value="">Enter Status</option>
-                                        <option value="Unverified">Unverified</option>
-                                        <option value='Repeated'>Repeated</option>
-                                        <option value='Verified'>Verified</option>
-                                        <option value="Failed">Failed</option>
-                                    </select>
-                                    <br />
-                                </div>
-                                <div className="center">
-                                    <button className="beautiful-button" onClick={handleSubmit}>Submit</button>
-                                </div>
-
+                            </div>
+                            <div className="center">
+                                <button className="beautiful-button" onClick={handleSubmit}>Submit</button>
                             </div>
 
                         </div>
-                    </div>
 
+                    </div>
                 </div>
 
-                <table className="table table-striped mt-5">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Subject</th>
-                            <th scope="col">Sem.work Marks</th>
-                            <th scope="col">Mid Marks</th>
-                            <th scope="col">Final Marks</th>
-                            <th scope="col">Practical Marks</th>
-                            <th scope="col">Obtain Marks</th>
-                            <th scope="col">Maximum Marks</th>
-                            <th scope="col">Percent%</th>
-                            <th scope="col">Grade</th>
-                            <th scope="col">Quality Points</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {
-                            data?.map((value: any, index: any) => {
-                                return (
-                                    <tr key={index}>
-                                        <th scope="row">{index + 1}</th>
-                                        <td>{value?.subject}</td>
-                                        <td>{value?.Semwork}</td>
-                                        <td>{value?.Midmarks}</td>
-                                        <td>{value?.Finalmarks}</td>
-                                        <td>{value?.Practical}</td>
-                                        <td>{value?.Total}</td>
-                                        <td>{value?.Maxmarks}</td>
-                                        <td>{`${value?.percent}%`}</td>
-                                        <td>{value?.grade}</td>
-                                        <td>{value?.QualityP.toFixed(1)}</td>
-                                        <td>{value?.status}</td>
-
-
-                                    </tr>
-                                )
-                            })
-                        }
-
-                    </tbody>
-                </table>
-                {
-                    data.length > 0 ? <div className='text-center mt-3 mb-3'>
-                        <button type="button" className="btn btn-primary rounded-pill" onClick={onGenerateGpa}>Generate GPA</button>
-                        <p>Your Total quality point are : {oning}</p>
-                        <p>Your Total obatained marks are : {totalling}</p>
-                        <p>your total marks are : {maximumMarks}</p>
-                        <p>your gpa is : {gpa}</p>
-                    </div> : null
-                }
-
-
             </div>
-        )
-    };
 
-    export default Result;
+            <table className="table table-striped mt-5">
+                <thead className="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Sem.work Marks</th>
+                        <th scope="col">Mid Marks</th>
+                        <th scope="col">Final Marks</th>
+                        <th scope="col">Practical Marks</th>
+                        <th scope="col">Obtain Marks</th>
+                        <th scope="col">Maximum Marks</th>
+                        <th scope="col">Percent%</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col">Quality Points</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {
+                        data?.map((value: any, index: any) => {
+                            return (
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{value?.subject}</td>
+                                    <td>{value?.Semwork}</td>
+                                    <td>{value?.Midmarks}</td>
+                                    <td>{value?.Finalmarks}</td>
+                                    <td>{value?.Practical}</td>
+                                    <td>{value?.Total}</td>
+                                    <td>{value?.Maxmarks}</td>
+                                    <td>{`${value?.percent}%`}</td>
+                                    <td>{value?.grade}</td>
+                                    <td>{value?.QualityP.toFixed(1)}</td>
+                                    <td>{value?.status}</td>
+
+
+                                </tr>
+                            )
+                        })
+                    }
+
+                </tbody>
+            </table>
+            {
+                data.length > 0 ? <div className='text-center mt-3 mb-3'>
+                    <button type="button" className="btn btn-primary rounded-pill" onClick={onGenerateGpa}>Generate GPA</button>
+                    <p>Your Total quality point are : {oning}</p>
+                    <p>Your Total obatained marks are : {totalling}</p>
+                    <p>your total marks are : {maximumMarks}</p>
+                    <p>your gpa is : {gpa}</p>
+                </div> : null
+            }
+
+
+        </div>
+    )
+};
+
+export default Result;

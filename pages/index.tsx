@@ -1,14 +1,25 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import Form from '../components/form'
-import Slider from '../components/Slider'
-import Result from '../components/result'
-
-
+import React, { useState, useEffect } from 'react';
+import { NextPage } from 'next';
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import Loader from './Loader';
+import Login from './Login';
 
 const Home: NextPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a delay of 5 seconds for the loader
+    const loaderTimeout = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    // Clean up the timeout when the component unmounts or when loading state changes
+    return () => {
+      clearTimeout(loaderTimeout);
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,12 +28,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-  {/* <Form/> */}
-  {/* <Slider /> */}
-  <Result/>
-  
+      {loading ? (
+        <Loader />
+      ) : (
+        <Login />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

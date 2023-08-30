@@ -2,9 +2,12 @@ import React from 'react';
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router';
+import { dropRight } from 'lodash';
 
 const Result = () => {
     const [data, setData] = useState<any[]>([])
+    const router = useRouter();
     const [maxMark, setmaxMark] = useState<any>(0);
     const [maxWork, setmaxWork] = useState<number>(0);
     const [name, setName] = useState<string>("");
@@ -27,6 +30,7 @@ const Result = () => {
     const [credit, setcredit] = useState<number>(0)
     const [gpa, setGpa] = useState<number>(0.0)
     const [submitted, setSubmitted] = useState<boolean>(false);
+
 
     const alpha = (e: any) => {
         const inputValue = e.target.value;
@@ -510,6 +514,11 @@ const Result = () => {
         setGpa(kuch)
         setSubmitted(true);
     }
+    const onDeleteEmaiil = () => {
+        localStorage.removeItem('user');
+        router.push('/Login');
+
+    }
     return (
         <div>
             <div className="d-flex justify-content-center mt-5">
@@ -618,6 +627,10 @@ const Result = () => {
                             </div>
                             <div className="center">
                                 <button className="beautiful-button" onClick={handleSubmit}>Submit</button>
+                                <div className='' >
+                                    <button className="btn btn-success"style={{position: "absolute", bottom: "15px", right: "5px" }} onClick={onDeleteEmaiil}>Logout</button>
+                                </div>
+
                             </div>
 
                         </div>

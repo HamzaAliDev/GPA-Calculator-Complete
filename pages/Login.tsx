@@ -3,10 +3,13 @@ type A ={
     email:string,
     password:string
 }
+import { useRouter } from 'next/router';
+import { toast } from "react-toastify";
 
 const Login = () => {
     const [mailing,setMailing]=useState<string>("");
     const [password,setPassword]=useState<string>("")
+    const router = useRouter();
 
     const alpha = (e:any)=>{
         setMailing(e.target.value)
@@ -22,7 +25,17 @@ const Login = () => {
             email:"hamza@gmail.com",
             password:"12345"
         } 
+        if(a.email === mailing && a.password === password){
 
+            router.push('/Calculator');
+            toast.success("Successfully Login")
+            localStorage.setItem('user', JSON.stringify(a.email));
+
+            
+        }
+else{
+    toast.error("LOgin Failed")
+}
     }
     return (
         <div className="d-flex justify-content-center  align-items-center vh-100">
